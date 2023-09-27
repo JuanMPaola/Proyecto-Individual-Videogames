@@ -1,5 +1,6 @@
 const axios = require('axios')
 const URL = "https://api.rawg.io/api/genres"
+require('dotenv').config();
 const {API_KEY} = process.env
 
 const {genderHandler} = require ("../handlres/genderHandler")

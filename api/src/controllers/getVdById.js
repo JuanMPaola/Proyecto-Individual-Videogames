@@ -1,26 +1,29 @@
-const axios = require('axios')
-const URL = "https://api.rawg.io/api/games"
-const {API_KEY} = process.env
-
+const axios = require('axios');
+const { getByIdHandler } = require('../handlres/getByIdHandler');
+require('dotenv').config();
+const { API_KEY } = process.env;
 
 const getVdById = async (req, res) => {
     try {
         const { id } = req.params;
-        const { data } = await axios(`${URL}/${id}?key=${API_KEY}`)
-        const { name, description, plataform, realesed, rating } = data;
+        const { data } = await axios(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`);
 
-        if (!name) {
-            res.status(404).send("Not found")
+        if (data.id) {
+            const juego = {
+                id: data.id,
+                name: data.name,
+                description: data.description,
+            };
+            return res.status(200).json(juego);
         }
-
+        if (!data.id) {
+            return getByIdHandler(id)
+        }
+        // return res.status(404).send("Not found");
         
-
-        if (name) {
-            return res.status(200).json({ name, description, plataform, realesed, rating })
-        }
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        res.status(500).json({ message: error.message });
     }
-}
+};
 
-module.exports = { getVdById }
+module.exports = { getVdById };

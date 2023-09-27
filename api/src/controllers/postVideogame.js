@@ -1,16 +1,20 @@
 const { Videogame } = require ('../db')
+const { postHandler } = require('../handlres/postHandler')
 
 const postVideogame = async (req,res)=> {
     try {
-        const {name, description, plataform, realesed, rating} = req.body;
-        if(!name || !description || !plataform || !realesed || !rating) res.status(400).json({message: "Faltan datos"})
+        const {name, description, } = req.body;
+        if(!name || !description) res.status(400).json({message: "Faltan datos"})
         
-        postHandler({name, description, plataform, realesed, rating});
-        res.status(200).json({message:"Videogame created"})
+        console.log({name, description})
+        if(name && description){
+            postHandler({name, description});
+            res.status(200).json({message:"Videogame created"})
+        }
 
 
     } catch (error) {
-        res.status(500).json({message:message})
+        res.status(500).json({message: error.message})
     }
 
 }
