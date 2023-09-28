@@ -3,12 +3,14 @@ const { postHandler } = require('../handlres/postHandler')
 
 const postVideogame = async (req,res)=> {
     try {
-        const {name, description, } = req.body;
+        const {name, description, genres} = req.body;
         if(!name || !description) res.status(400).json({message: "Faltan datos"})
+
+        const pe = await Videogame.findOne({ where: {name}})
+        if (pe) return res.status(400).json({message: "Videogame already exists"})
         
-        console.log({name, description})
         if(name && description){
-            postHandler({name, description});
+            postHandler({name, description, genres});
             res.status(200).json({message:"Videogame created"})
         }
 

@@ -1,18 +1,21 @@
 const axios = require('axios');
 const URL = "https://api.rawg.io/api/games";
 require('dotenv').config();
-const {API_KEY} = process.env;
-const PAGE = 1;
+const { API_KEY } = process.env;
+let PAGE = 1;
 
 const getVideogame = async (req, res) => {
     try {
+        let allGames = [];
+        while (PAGE < 6) {
+            let { data } = await axios(`${URL}?key=${API_KEY}&page=${PAGE}`)
+            allGames = [...allGames, ...data.results];
+            PAGE++;
+        }
 
-        const {data} = await axios(`${URL}?key=${API_KEY}&page=${PAGE}`)
+        if (!allGames) return res.status(404).send("Not found")
 
-        if (!data) return res.status(404).send("Not found")
-
-        if (data) return res.status(200).json(data)
-
+        if (allGames) return res.status(200).json(allGames)
 
     } catch (error) {
         res.status(500).json({ message: error.message })
