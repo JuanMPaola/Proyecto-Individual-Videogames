@@ -9,7 +9,11 @@ const getVdById = async (req, res) => {
         const { id } = req.params;
 
         if (id.includes("-")){
-            const juego = await Videogame.findOne({ where: { id: id } })
+            const juego = await Videogame.findOne({ 
+                where: { 
+                    id: id,
+                    includes: Genre 
+                } })
 
             if (juego) return res.status(200).json(juego)
             else return res.status(404).send("Not found")
@@ -22,7 +26,7 @@ const getVdById = async (req, res) => {
                 id: data.id,
                 name: data.name,
                 description: data.description,
-                
+                genre: data.genres
             };
             return res.status(200).json(juego);
         } else {
