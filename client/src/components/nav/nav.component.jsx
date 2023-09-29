@@ -1,24 +1,43 @@
 import style from "./nav.module.css"
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getByName } from "../../redux/actions";
+import { NavLink } from "react-router-dom";
 
-function Nav({ onSearch }) {
+function Nav() {
 
-/*     const [name, setGames] = useState("");
+    const dispatch = useDispatch();
 
-    function handleChange(event){
-        
-    } */
+    const [name, setName] = useState("");
+
+    const onSearch = (event) => {
+        event.preventDefault()
+        dispatch(getByName(name))
+    }
+
+
+    function handleChange(event) {
+        setName(event.target.value);
+    }
 
     return (
         <div className={style.container} >
-            <h1>Nav Bar  B|</h1>
+            <h4>Nav Bar B|</h4>
+            <NavLink to={`/home`}>
+                <button>Home</button>
+            </NavLink>
 
             <input
                 type="text"
-/*                 value={name}
-                onChange={() =>{handleChange}}  */
+                onChange={handleChange}
             />
-            <button /* onClick={()=>onSearch(name)} */></button>
+            <button onClick={onSearch}>🔎</button>
+
+            <NavLink to={`/form`}>
+                <button>Upload game</button>
+            </NavLink>
+
+
         </div>
     );
 }
