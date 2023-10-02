@@ -4,15 +4,18 @@ import { sumbitGame } from "../../redux/actions";
 
 import { useDispatch } from "react-redux";
 
-function Form() {
+function Form({ allGenres }) {
 
   const [data, setData] = useState({
     name: "",
     description: "",
-    /* realesed: "",
+    realesed: "",
     image: "",
+    rating: "",
+    genres: ""
+    /*
     platafomrs: "",
-    genres: "" */
+     */
   })
 
   const [error, setErrors] = useState({
@@ -71,6 +74,14 @@ function Form() {
           placeholder="Plataforms"
           name="plataforms"
         />
+        <label >Rating</label>
+        <input
+          type="number"
+          value={data.rating}
+          onChange={handleChange}
+          placeholder="1 to 10"
+          name="rating"
+        />
         <label >Fecha de lanzamiento</label>
         <input
           type="date"
@@ -79,14 +90,17 @@ function Form() {
           placeholder="Realesed date"
           name="realesed"
         />
-        <label >Generos</label>
-        <input
-          type="text"
-          value=""
-          onChange={handleChange}
-          placeholder="Genres"
-          name="genres"
-        />
+        <select>
+        <option value="" disabled selected>Genres</option>
+          {
+            allGenres.map((genero) => (
+              <option key={genero.id} value={genero.name}>
+                {genero.name}
+              </option>
+            ))
+          }
+        </select>
+
         <button type="sumbit" onClick={handleSumbit}>SUMBITEALO</button>
       </form>
     </div>

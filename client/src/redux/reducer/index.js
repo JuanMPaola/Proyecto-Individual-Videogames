@@ -1,6 +1,6 @@
-import { CLEAR_STATE, GET_BY_ID, GET_BY_NAME, GET_GAMES, SUMBIT_GAME } from "../actions";
+import { CLEAR_STATE, GET_BY_ID, GET_BY_NAME, GET_GAMES, SUMBIT_GAME, GET_GENRES } from "../actions";
 
-let initialState = { allGames: [] }
+let initialState = { allGames: [], allGenres: [] }
 
 function rootReducer(state = initialState, action) {
     switch (action.type) {
@@ -24,6 +24,11 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 allGames: [...state.allGames,...action.payload]
             }
+            case GET_GENRES:
+                return{
+                    ...state,
+                    allGenres: action.payload
+                }
         case CLEAR_STATE:
             return {
                 allGames: action.payload

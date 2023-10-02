@@ -12,7 +12,6 @@ function Home() {
 
   useEffect(() => {
     dispatch(getGames())
-
     //Aca va lo que pasa cuando se desmonta
     /* return (()=>clearState()) */
   }, [dispatch])

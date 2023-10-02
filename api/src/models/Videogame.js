@@ -23,11 +23,11 @@ module.exports = (sequelize) => {
     image: {
       type: DataTypes.STRING,
     },
-    realeseData: {
-      type: DataTypes.DATE,
+    realesed: {
+      type: DataTypes.DATEONLY,
     },
     rating: {
-      type: DataTypes.INTEGER
+      type: DataTypes.DECIMAL
     }
   },{timestamps: false});
 };

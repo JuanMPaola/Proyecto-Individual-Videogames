@@ -1,6 +1,6 @@
 const { Videogame, Genre } = require('../db');
 
-const postHandler = async ({ name, image, description, platafomrs, realesed, genres }) => {
+const postHandler = async ({ name, image, description, platafomrs, realesed, genres, rating}) => {
     try {
 
         // Verificar si el videojuego ya existe en la base de datos
@@ -8,10 +8,12 @@ const postHandler = async ({ name, image, description, platafomrs, realesed, gen
             where: {
                 name,
                 description,
-                /* realesed,
+                realesed, 
                 image,
+                rating,
+                genres/*
                 platafomrs,
-                genres */
+                 */
             },
         });
 
