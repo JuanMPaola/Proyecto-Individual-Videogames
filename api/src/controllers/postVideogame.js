@@ -3,7 +3,7 @@ const { postHandler } = require('../handlres/postHandler')
 
 const postVideogame = async (req, res) => {
     try {
-        const { name, image, description, platafomrs, realesed, genres, rating } = req.body;
+        const { name, background_image, description, rating, realesed, platforms/* ,genres  */ } = req.body;
 
         if (!name || !description) res.status(400).json({ message: "Faltan datos" })
 
@@ -11,7 +11,7 @@ const postVideogame = async (req, res) => {
         if (pe) return res.status(400).json({ message: "Videogame already exists" })
 
         if (name && description) {
-            postHandler({ name,description ,  realesed, image, rating, genres /*,platafomrs  , */});
+            postHandler({ name,description ,  realesed, background_image, rating, platforms/*, genres */});
             res.status(200).json({ message: "Videogame created" })
         }
 

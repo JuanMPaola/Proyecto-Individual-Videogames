@@ -17,10 +17,10 @@ module.exports = (sequelize) => {
     description: {
       type: DataTypes.STRING,
     },
-    plataforms: {
-      type: DataTypes.INTEGER,
+    platforms: {
+      type: DataTypes.STRING,
     },
-    image: {
+    background_image: {
       type: DataTypes.STRING,
     },
     realesed: {

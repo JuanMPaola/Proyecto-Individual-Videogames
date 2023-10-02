@@ -1,6 +1,6 @@
 const { Videogame, Genre } = require('../db');
 
-const postHandler = async ({ name, image, description, platafomrs, realesed, genres, rating}) => {
+const postHandler = async ({ name, background_image, description, platforms, realesed, genres, rating}) => {
     try {
 
         // Verificar si el videojuego ya existe en la base de datos
@@ -9,18 +9,17 @@ const postHandler = async ({ name, image, description, platafomrs, realesed, gen
                 name,
                 description,
                 realesed, 
-                image,
+                background_image,
                 rating,
-                genres/*
-                platafomrs,
-                 */
+                platforms/*,
+                 genres */
             },
         });
 
         if (!created) {
-            console.log("El videojuego ya existe:", videogame.name);
+            console.log("El videojuego ya existe:");
         } else {
-            console.log("Videojuego creado:", videogame.name);
+            console.log("Videojuego creado:");
 
             // Asociar los géneros con el videojuego
             if (genres && genres.length > 0) {
