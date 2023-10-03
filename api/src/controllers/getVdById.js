@@ -11,7 +11,7 @@ const getVdById = async (req, res) => {
             const juego = await Videogame.findOne({ 
                 where: { 
                     id: id,
-                    includes: Genre 
+                    /* includes: Genre  */
                 } })
 
             if (juego) return res.status(200).json(juego)
