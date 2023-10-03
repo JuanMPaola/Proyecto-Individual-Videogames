@@ -6,6 +6,7 @@ export const CLEAR_STATE = "CLEAR_STATE"
 export const GET_BY_ID = "GET_BY_ID"
 export const GET_GENRES = "GET_GENRES"
 export const SUMBIT_GAME= "SUMBIT_GAME" 
+export const GET_PLATFORMS= "GET_PLATFORMS"
 
 export function getGames(){
     return async function(dispatch) {
@@ -56,6 +57,17 @@ export function getGenres (){
         })
     }
 }
+
+/* export function getPlatforms (){
+    return async function(dispatch){
+        const response = await axios (`http://localhost:3001/videogames`)
+        console.log(response)
+        return dispatch ({
+            typeof: GET_PLATFORMS,
+            payload: response.data
+        })
+    }
+} */
 
 export function clearState (){
     return function(dispatch){

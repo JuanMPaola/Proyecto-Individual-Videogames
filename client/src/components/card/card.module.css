@@ -1,3 +1,18 @@
-.container img{
-    width: 200px;
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: solid rgb(0, 0, 0) 2px;
+    margin: 10px 10px 20px 20px;
+    color: white;
+    border-radius: 10px;
+    background-color: rgb(38, 38, 38);
+    max-width: 300px;
+}
+
+
+.container img {
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }

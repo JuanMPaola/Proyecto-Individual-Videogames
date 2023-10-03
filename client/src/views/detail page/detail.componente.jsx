@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 function Detail() {
 
-  const {id} = useParams()
+  const { id } = useParams()
 
   let game = useSelector((state) => state.allGames);
 
@@ -18,14 +18,28 @@ function Detail() {
     /* return (()=>clearState()) */
   }, [dispatch])
 
- // console.log(game)
-
+  const description = game.description?.replace(/<[^>]*>/g, '');
   return (
     <div >
+      {console.log(game.genres)}
       <h1>Pagina de detalles</h1>
       <h3>{game.name}</h3>
-      <p>{game.description}</p>
+      <p>{description}</p>
       <img src={game.background_image} alt="" />
+      <h4>Realesed: {game.released}</h4>
+      <h4>Rating: {game.rating}</h4>
+      <h4>Genres:</h4>
+      <ul>
+        {game.genres?.map((genre) => (
+          <li>{genre.name}</li>
+        ))}
+      </ul>
+      <h4>Avible on:</h4>
+      {/* <ul>
+        {game.platforms?.map((plat) => (
+          <li>{plat.name}</li>
+        ))}
+      </ul> */}
 
     </div>
   );

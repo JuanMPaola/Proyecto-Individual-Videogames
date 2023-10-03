@@ -11,8 +11,8 @@ const postVideogame = async (req, res) => {
         if (pe) return res.status(400).json({ message: "Videogame already exists" })
 
         if (name && description) {
-            postHandler({ name,description ,  realesed, background_image, rating, platforms, genres});
-            res.status(200).json({ message: "Videogame created" })
+            const juego = postHandler({name, description, realesed, background_image, rating, platforms, genres});
+            res.status(200).json({juego})
         }
 
     } catch (error) {
