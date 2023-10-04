@@ -22,7 +22,7 @@ function Nav() {
 
     return (
         <div className={style.container} >
-            <h4>Nav Bar B|</h4>
+
             <NavLink to={`/home`}>
                 <button>Home</button>
             </NavLink>

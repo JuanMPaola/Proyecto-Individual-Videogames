@@ -7,6 +7,8 @@ const postVideogame = async (req, res) => {
 
         if (!name || !description) res.status(400).json({ message: "Faltan datos" })
 
+        console.log(genres, platforms)
+
         const pe = await Videogame.findOne({ where: { name } })
         if (pe) return res.status(400).json({ message: "Videogame already exists" })
 

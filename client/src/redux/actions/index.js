@@ -7,6 +7,7 @@ export const GET_BY_ID = "GET_BY_ID"
 export const GET_GENRES = "GET_GENRES"
 export const SUMBIT_GAME= "SUMBIT_GAME" 
 export const GET_PLATFORMS= "GET_PLATFORMS"
+export const FILTER_GAMES= "FILTER_GAMES"
 
 export function getGames(){
     return async function(dispatch) {
@@ -68,6 +69,15 @@ export function getGenres (){
         })
     }
 } */
+
+export function filterGames (data){
+    return async function(dispatch){
+        return dispatch({
+            type: FILTER_GAMES,
+            payload: data
+        })
+    }
+}
 
 export function clearState (){
     return function(dispatch){

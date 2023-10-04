@@ -13,32 +13,30 @@ import Nav from "./components/nav/nav.component";
 function App() {
 
   let allGenres = useSelector((state) => state.allGenres);
-  const allPlataforms = ["PC", "xBox", "PS4", "Switch", "PS5"]
-
+  
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     dispatch(getGenres())
     //Aca va lo que pasa cuando se desmonta
     /* return (()=>clearState()) */
   }, [dispatch])
-
+  
   const allGames = useSelector((state) => state.allGames);
-
+  
   useEffect(() => {
     dispatch(getGames())
     //Aca va lo que pasa cuando se desmonta
     /* return (()=>clearState()) */
   }, [dispatch])
-
+  
+  const allPlataforms = ["PC", "xBox", "PS4", "Switch", "PS5"]
 /*   const platforms = useSelector((state)=> state.platforms)
 
   useEffect(() => {
     dispatch(getPlatforms())
 
   }, [dispatch]) */
-
-
 
   return (
     <div>
@@ -47,7 +45,7 @@ function App() {
       <Routes>
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/" element={<Landing />} />
-        <Route exact path="/home" element={<Home allGames={allGames} />} />
+        <Route exact path="/home" element={<Home allGames={allGames} allGenres={allGenres} />} />
         <Route path="/form" element={<Form allGenres={allGenres} allPlataforms={allPlataforms} />} />
       </Routes>
     </div>

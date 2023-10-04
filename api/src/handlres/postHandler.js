@@ -14,20 +14,18 @@ const postHandler = async ({ name, background_image, description, platforms, rea
             },
         });
 
-        console.log(genres);
+        /* console.log(genres, platforms); */
 
         // Asociar los géneros con el videojuego
         if (genres) {
-            /* for (const genreName of genres) { */
+            for (const genreName of genres) {
                 const genre = await Genre.findOne({
-                    where: { name: [genres] },
+                    where: { name: genreName },
                 });
                 if (genre) {
                     await videogame.addGenre(genre); 
-                   /*  console.log(`Género "${genreName}" asociado.`); */
                 }
-            /* } */
-
+            }
             // Verificar si los géneros se asociaron correctamente
             const gameWithGenres = await Videogame.findOne({
                 where: { id: videogame.id },
@@ -44,7 +42,6 @@ const postHandler = async ({ name, background_image, description, platforms, rea
 
         return videogame; // Importante: devolver el videojuego creado
     } catch (error) {
-        console.error("Error al crear el videojuego:", error);
         throw error;
     }
 };

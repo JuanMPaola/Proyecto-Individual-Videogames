@@ -16,18 +16,23 @@ module.exports = (sequelize) => {
     },
     description: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     platforms: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      /* allowNull: false, */
     },
     background_image: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     realesed: {
       type: DataTypes.DATEONLY,
+      allowNull: false,
     },
     rating: {
-      type: DataTypes.DECIMAL
+      type: DataTypes.DECIMAL,
+      allowNull: false,
     }
   },{timestamps: false});
 };

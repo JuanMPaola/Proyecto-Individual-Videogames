@@ -16,8 +16,8 @@ function Form({ allGenres }) {
     realesed: "",
     background_image: "",
     rating: "",
-    platforms: "",
-    genres: ""
+    platforms: [],
+    genres: [],
   })
 
   const [errors, setErrors] = useState({
@@ -30,11 +30,11 @@ function Form({ allGenres }) {
     genres: "",
   });
 
-
   useEffect(() => {
     disabledHandler()
   }, [errors])
 
+  //FUNCION QUE SE USA PARA MODIFICAR EL ESTADO DEL BOTON
   const disabledHandler = () => {
     if (errors && Object.keys(errors).length > 0) {
       setIsDisabled(true)
@@ -54,14 +54,25 @@ function Form({ allGenres }) {
 
     if (data.realesed === "" || !data.realesed) errors.realesed = "Ingrese la fecha de lanzamiento"
 
+    if(data.genres.length<1|| !data.genres) errors.genres = "Ingrese almenos un genero"
+
+    if(data.platforms.length < 1|| !data.platforms) errors.platforms = "Ingrese aunque sea una plataforma"
+
     return errors;
   }
 
   const handleChange = (event) => {
-    setData({
-      ...data,
-      [event.target.name]: event.target.value
-    })
+    if(event.target.name === "platforms" ||event.target.name === "genres"){
+      setData({
+        ...data,
+        [event.target.name]: [...data[event.target.name],...[event.target.value]]
+      })
+    }else{
+      setData({
+        ...data,
+        [event.target.name]: event.target.value
+      })
+    }
     setErrors(
       validation({
         ...data,
@@ -82,6 +93,7 @@ function Form({ allGenres }) {
     <div className={style.container} >
       <h1>Subi tu juego</h1>
 
+      {console.log(data)}
 
       <form onSubmit={handleSumbit}>
         <label >Nombre</label>
@@ -101,6 +113,7 @@ function Form({ allGenres }) {
           placeholder="background_image"
           name="background_image"
         />
+        {errors.background_image ? <p className="formerror">{errors.background_image}</p> : null}
         <label >Descripcion</label>
         <input
           type="text"
@@ -109,9 +122,10 @@ function Form({ allGenres }) {
           placeholder="Description"
           name="description"
         />
+        {errors.description ? <p className="formerror">{errors.description}</p> : null}
         <label >Plataformas</label>
         <select
-          value={data.platforms}
+          defaultValue=""
           onChange={handleChange}
           name="platforms"
         >
@@ -124,6 +138,7 @@ function Form({ allGenres }) {
             ))
           }
         </select>
+        {errors.platforms ? <p className="formerror">{errors.platforms}</p> : null}
         <label >Rating</label>
         <input
           type="text"
@@ -142,7 +157,7 @@ function Form({ allGenres }) {
         />
         <label >Generos</label>
         <select
-          value={data.genres}
+         defaultValue=""
           onChange={handleChange}
           name="genres"
         >
@@ -155,6 +170,7 @@ function Form({ allGenres }) {
             ))
           }
         </select>
+        {errors.genres ? <p className="formerror">{errors.genres}</p> : null}
         <button type="submit" onClick={handleSumbit} disabled={isDisabled}>SUMBITEALO</button>
       </form>
     </div>
