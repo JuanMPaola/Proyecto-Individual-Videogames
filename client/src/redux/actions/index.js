@@ -1,37 +1,44 @@
 import axios from "axios";
 
 export const GET_GAMES = "GET_GAMES"
-export const GET_BY_NAME = "GET_BY_NAME"
-export const CLEAR_STATE = "CLEAR_STATE"
 export const GET_BY_ID = "GET_BY_ID"
-export const GET_GENRES = "GET_GENRES"
-export const SUMBIT_GAME= "SUMBIT_GAME" 
-export const GET_PLATFORMS= "GET_PLATFORMS"
-export const FILTER_GAMES= "FILTER_GAMES"
+export const GET_BY_NAME = "GET_BY_NAME"
 
-export function getGames(){
-    return async function(dispatch) {
-        const response = await axios ("http://localhost:3001/videogames")
+export const GET_GENRES = "GET_GENRES"
+export const GET_PLATFORMS = "GET_PLATFORMS"
+
+export const SUMBIT_GAME = "SUMBIT_GAME"
+
+export const CLEAR_STATE = "CLEAR_STATE"
+
+export const ORDER_UPDOWN = "ORDER_UPDOWN"
+export const ORDER_NAMRAT = "ORDER_NAMRAT"
+export const FILTER_ORIGIN = "FILTER_ORIGIN"
+export const FILTER_GENRES = "FILTER_GENRES"
+
+export function getGames() {
+    return async function (dispatch) {
+        const response = await axios("http://localhost:3001/videogames")
         return dispatch({
             type: GET_GAMES,
-            payload: response.data 
+            payload: response.data
         })
     }
 }
 
-export function getByName(name){
-    return async function(dispatch) {
-        const response = await axios (`http://localhost:3001/videogames/name?name=${name}`)
+export function getByName(name) {
+    return async function (dispatch) {
+        const response = await axios(`http://localhost:3001/videogames/name?name=${name}`)
         return dispatch({
             type: GET_BY_NAME,
-            payload: response.data 
+            payload: response.data
         })
     }
 }
 
-export function getById(id){
-    return async function(dispatch){
-        const response = await axios (`http://localhost:3001/videogames/${id}`)
+export function getById(id) {
+    return async function (dispatch) {
+        const response = await axios(`http://localhost:3001/videogames/${id}`)
         return dispatch({
             type: GET_BY_ID,
             payload: response.data,
@@ -39,8 +46,8 @@ export function getById(id){
     }
 }
 
-export function sumbitGame(data){
-    return async function(dispatch){
+export function sumbitGame(data) {
+    return async function (dispatch) {
         const response = await axios.post(`http://localhost:3001/videogames`, data)
         return dispatch({
             type: SUMBIT_GAME,
@@ -49,9 +56,9 @@ export function sumbitGame(data){
     }
 }
 
-export function getGenres (){
-    return async function(dispatch){
-        const response = await axios ("http://localhost:3001/genres")
+export function getGenres() {
+    return async function (dispatch) {
+        const response = await axios("http://localhost:3001/genres")
         return dispatch({
             type: GET_GENRES,
             payload: response.data
@@ -66,21 +73,40 @@ export function getGenres (){
         return dispatch ({
             typeof: GET_PLATFORMS,
             payload: response.data
-        })
+        }
     }
 } */
 
-export function filterGames (data){
-    return async function(dispatch){
-        return dispatch({
-            type: FILTER_GAMES,
-            payload: data
-        })
+export function orderNamRat(namRat) {
+    return {
+        type: ORDER_NAMRAT,
+        payload: namRat,
     }
 }
 
-export function clearState (){
-    return function(dispatch){
+export function orderUpDown(state) {
+    return {
+        type: ORDER_UPDOWN,
+        payload: state,
+    }
+}
+
+export function filterOrigin(origin) {
+    return {
+        type: FILTER_ORIGIN,
+        payload: origin,
+    }
+}
+
+export function filterGenres(genres) {
+    return ({
+        type: FILTER_GENRES,
+        payload: genres,
+    })
+}
+
+export function clearState() {
+    return function (dispatch) {
         return dispatch({
             type: CLEAR_STATE,
             payload: []

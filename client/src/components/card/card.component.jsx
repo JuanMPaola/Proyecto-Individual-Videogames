@@ -12,6 +12,7 @@ function Card({ game }) {
                         <li>{genre.name}</li>
                     ))}
                 </ul>
+                <p>{game.rating}</p>
             </div>
 
             <div>
