@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { getGenres, getPlatforms } from "./redux/actions";
 import { getGames } from "./redux/actions";
 
+import "./App.css"
+
 import Detail from './views/detail page/detail.componente';
 import Home from './views/home/home.component';
 import Form from './views/form page/form.component';
@@ -12,20 +14,12 @@ import Nav from "./components/nav/nav.component";
 
 function App() {
 
-  let allGenres = useSelector((state) => state.allGenres);
-  
   const dispatch = useDispatch();
+
+  let allGenres = useSelector((state) => state.allGenres);
   
   useEffect(() => {
     dispatch(getGenres())
-    //Aca va lo que pasa cuando se desmonta
-    /* return (()=>clearState()) */
-  }, [dispatch])
-  
-  const allGames = useSelector((state) => state.allGames);
-  
-  useEffect(() => {
-    dispatch(getGames())
     //Aca va lo que pasa cuando se desmonta
     /* return (()=>clearState()) */
   }, [dispatch])
@@ -40,12 +34,11 @@ function App() {
 
   return (
     <div>
-      {console.log()}
       <Nav />
       <Routes>
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/" element={<Landing />} />
-        <Route exact path="/home" element={<Home allGames={allGames} allGenres={allGenres} />} />
+        <Route exact path="/home" element={<Home allGenres={allGenres} />} />
         <Route path="/form" element={<Form allGenres={allGenres} allPlataforms={allPlataforms} />} />
       </Routes>
     </div>

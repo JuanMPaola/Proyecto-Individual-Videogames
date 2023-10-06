@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import style from "./home.module.css"
 
-import { orderUpDown, getGames} from "../../redux/actions";
+import { orderUpDown, getGames, orderNamRat } from "../../redux/actions";
 import Cards from "../../components/cards/cards.component";
 
 
@@ -11,17 +11,15 @@ function Home({ allGenres }) {
 
   const [filters, setFilters] = useState({});
 
-  const [orden, setOrden] = useState("-");
-
-  let allGames = useSelector((state) => state.allGames);
+  const [aux, setAux] = useState(false);
 
   const dispatch = useDispatch();
 
+  let allGames = useSelector((state) => state.allGames);
+
   useEffect(() => {
-    dispatch(getGames())
-    //Aca va lo que pasa cuando se desmonta
-    /* return (()=>clearState()) */
-  }, [dispatch])
+    dispatch(getGames()); // Llama a la acción para cargar los juegos
+  }, []);
 
   const handleChange = (event) => {
     const { name, checked } = event.target;
@@ -30,20 +28,18 @@ function Home({ allGenres }) {
       [name]: checked
     });
   };
-
   const handleOrden = (event) => {
-    setOrden({
-      ...orden,
-      [event.target.name]: event.target.value,
-    })
-    dispatch(orderUpDown(orden))
+    dispatch(orderUpDown(event.target.value))
+    setAux(true)
+  }
+  const handleName = (event) => {
+    dispatch(orderNamRat(event.target.value))
+    setAux(true)
   }
 
+  console.log(allGames)
   return (
     <div className={style.container}>
-
-
-      {console.log(filters)}
 
       <div className={style.filtros}>
         <h1>filtros</h1>
@@ -56,13 +52,14 @@ function Home({ allGenres }) {
         </select>
 
         <h3>Rating</h3>
-        <select name="ratingName" onChange={handleOrden}>
-          <option value="name" selected>Nombre </option>
+        <select name="ratingName" onChange={handleName}>
+          <option value="-" selected >-</option>
+          <option value="name" >Nombre </option>
           <option value="rating">Rating </option>
         </select>
 
         <h3>Origen</h3>
-        <select name="Origen" /* onChange={handleOrden} */>
+        <select name="Origen" onChange={handleOrden}>
           <option value="-" selected>-</option>
           <option value="DB">DB Games</option>
           <option value="API">API Games</option>
@@ -70,7 +67,7 @@ function Home({ allGenres }) {
 
         <h3>Generos</h3>
 
-        {allGenres.map((genero) => (
+        {allGenres && allGenres.map((genero) => (
           <label key={genero.id}>
             {genero.name}
             <input
@@ -81,7 +78,6 @@ function Home({ allGenres }) {
             />
           </label>
         ))}
-
       </div>
 
       <div className={style.cards}>

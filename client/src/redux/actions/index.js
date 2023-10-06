@@ -78,6 +78,7 @@ export function getGenres() {
 } */
 
 export function orderNamRat(namRat) {
+    console.log(namRat)
     return {
         type: ORDER_NAMRAT,
         payload: namRat,
@@ -85,18 +86,19 @@ export function orderNamRat(namRat) {
 }
 
 export function orderUpDown(state) {
+    console.log(state)
     return {
         type: ORDER_UPDOWN,
         payload: state,
     }
 }
 
-export function filterOrigin(origin) {
+/* export function filterOrigin(origin) {
     return {
         type: FILTER_ORIGIN,
         payload: origin,
     }
-}
+} */
 
 export function filterGenres(genres) {
     return ({

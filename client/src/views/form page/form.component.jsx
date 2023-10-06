@@ -43,49 +43,77 @@ function Form({ allGenres }) {
     }
   }
 
+  //FUNCION DE VALIDACION DE CAMPOS
   function validation(data) {
     let errors = {}
 
     if (data.name === "" || !data.name) errors.name = "El nombre es obligatorio"
-
-    if (data.description === "" || !data.description) errors.description = "Agregue una breve descripcion"
+    if (data.name.length > 50) errors.name = "Longitud maxima de nombre 50 caracteres"
 
     if (data.background_image === "" || !data.background_image) errors.background_image = "La imagen es obligatoria"
 
+    if (data.description === "" || !data.description) errors.description = "Agregue una breve descripcion"
+    if (data.description.length > 50) errors.description = "Longitud maxima de descripcion 255 caracteres"
+
+    if (data.platforms.length < 1 || !data.platforms) errors.platforms = "Ingrese aunque sea una plataforma"
+
+    if (!data.rating) errors.rating = "Ingrese el rating del juego"
+    if (data.rating > 10 || data.rating < 0) errors.rating = "Rating debe ser entre 0 y 10"
+
     if (data.realesed === "" || !data.realesed) errors.realesed = "Ingrese la fecha de lanzamiento"
 
-    if(data.genres.length<1|| !data.genres) errors.genres = "Ingrese almenos un genero"
-
-    if(data.platforms.length < 1|| !data.platforms) errors.platforms = "Ingrese aunque sea una plataforma"
+    if (data.genres.length < 1 || !data.genres) errors.genres = "Ingrese almenos un genero"
 
     return errors;
   }
 
+  //GUARDA LOS VALORES EN EL ESTADO
   const handleChange = (event) => {
-    if(event.target.name === "platforms" ||event.target.name === "genres"){
+    const { name, value } = event.target;
+
+    if (name === "platforms" || name === "genres") {
+      const selectedValue = value;
+      if (!data[name].includes(selectedValue)) {
+        setData({
+          ...data,
+          [name]: [...data[name], selectedValue]
+        });
+      }
+    } else {
       setData({
         ...data,
-        [event.target.name]: [...data[event.target.name],...[event.target.value]]
-      })
-    }else{
-      setData({
-        ...data,
-        [event.target.name]: event.target.value
-      })
+        [name]: value
+      });
     }
+    setErrors(
+      validation({
+        ...data,
+        [name]: value
+      })
+    );
+  };
+
+  //ELIMINA GENEROS YA AGREGADOS
+  const deleteOption = (event) => {
+    event.preventDefault();
+    const eliminado = data[event.target.name].filter((option) => option !== event.target.value)
+    setData({
+      ...data,
+      [event.target.name]: eliminado
+    })
     setErrors(
       validation({
         ...data,
         [event.target.name]: event.target.value
       })
-    )
+    );
+
   }
 
   const dispatch = useDispatch();
 
   function handleSumbit(event) {
     event.preventDefault()
-    console.log(data)
     dispatch(sumbitGame(data))
   }
 
@@ -129,7 +157,7 @@ function Form({ allGenres }) {
           onChange={handleChange}
           name="platforms"
         >
-          <option disabled selected>-</option>
+          <option selected>-</option>
           {
             allPlatforms.map((plat) => (
               <option value={plat}>
@@ -139,6 +167,16 @@ function Form({ allGenres }) {
           }
         </select>
         {errors.platforms ? <p className="formerror">{errors.platforms}</p> : null}
+
+        {data.platforms ? (
+          <div>
+            {
+              data.platforms.map((plat) => (
+                <button name="platforms" key={plat} value={plat} onClick={deleteOption}>{plat}❌</button>
+              ))}
+          </div>
+        ) : null}
+
         <label >Rating</label>
         <input
           type="text"
@@ -147,6 +185,10 @@ function Form({ allGenres }) {
           placeholder="1 to 10"
           name="rating"
         />
+
+        
+
+        {errors.rating ? <p className="formerror">{errors.rating}</p> : null}
         <label >Fecha de lanzamiento</label>
         <input
           type="date"
@@ -155,9 +197,10 @@ function Form({ allGenres }) {
           placeholder="Realesed date"
           name="realesed"
         />
+        {errors.realesed ? <p className="formerror">{errors.realesed}</p> : null}
         <label >Generos</label>
         <select
-         defaultValue=""
+          defaultValue=""
           onChange={handleChange}
           name="genres"
         >
@@ -171,6 +214,16 @@ function Form({ allGenres }) {
           }
         </select>
         {errors.genres ? <p className="formerror">{errors.genres}</p> : null}
+
+        {data.genres ? (
+          <div>
+            {
+              data.genres.map((genre) => (
+                <button name="genres" key={genre} value={genre} onClick={deleteOption}>{genre}❌</button>
+              ))}
+          </div>
+        ) : null}
+
         <button type="submit" onClick={handleSumbit} disabled={isDisabled}>SUMBITEALO</button>
       </form>
     </div>

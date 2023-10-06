@@ -12,6 +12,7 @@ const getVideogame = async (req, res) => {
             allGames = [...allGames, ...data.results];
             PAGE++;
         }
+        PAGE =1;
 
         if (!allGames) return res.status(404).send("Not found")
 
