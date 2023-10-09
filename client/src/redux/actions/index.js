@@ -13,8 +13,8 @@ export const CLEAR_STATE = "CLEAR_STATE"
 
 export const ORDER_UPDOWN = "ORDER_UPDOWN"
 export const ORDER_NAMRAT = "ORDER_NAMRAT"
-export const FILTER_ORIGIN = "FILTER_ORIGIN"
 export const FILTER_GENRES = "FILTER_GENRES"
+export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN"
 
 export function getGames() {
     return async function (dispatch) {
@@ -77,28 +77,19 @@ export function getGenres() {
     }
 } */
 
-export function orderNamRat(namRat) {
-    console.log(namRat)
-    return {
-        type: ORDER_NAMRAT,
-        payload: namRat,
-    }
-}
-
-export function orderUpDown(state) {
-    console.log(state)
+export function orderUpDown(orden) {
     return {
         type: ORDER_UPDOWN,
-        payload: state,
+        payload: orden,
     }
 }
 
-/* export function filterOrigin(origin) {
+export function filterByOrigin(origin) {
     return {
-        type: FILTER_ORIGIN,
+        type: FILTER_BY_ORIGIN,
         payload: origin,
     }
-} */
+}
 
 export function filterGenres(genres) {
     return ({

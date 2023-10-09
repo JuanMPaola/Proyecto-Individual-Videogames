@@ -1,10 +1,13 @@
-import { CLEAR_STATE, GET_BY_ID, GET_BY_NAME, GET_GAMES, SUMBIT_GAME, GET_GENRES, GET_PLATFORMS, ORDER_NAMRAT, ORDER_UPDOWN } from "../actions";
+import { CLEAR_STATE, GET_BY_ID, GET_BY_NAME, GET_GAMES, SUMBIT_GAME, GET_GENRES, GET_PLATFORMS, ORDER_NAMRAT, ORDER_UPDOWN, filterGenres, FILTER_GENRES } from "../actions";
 
-let initialState = { allGames: [], allGenres: [], platflorms: [], orden: "", ratName:"" }
+let initialState = { allGames: [], allGenres: [], platflorms: [] }
 
 function rootReducer(state = initialState, action) {
     let ordenados;
+    let filtrados;
+
     switch (action.type) {
+
         case GET_BY_NAME:
             return {
                 ...state,
@@ -37,68 +40,34 @@ function rootReducer(state = initialState, action) {
             }
 
         case ORDER_UPDOWN:
-            if (state.ratName === "name") {
-                if (action.payload.Orden === "Ascendente") {
-                    ordenados = state.allGames.sort((a, b) => a.name.localeCompare(b.name))
-                } else if (action.payload.Orden === "Descendente") {
-                    ordenados = state.allGames.sort((a, b) => b.name.localeCompare(a.name))
-                } else {
-                    ordenados = state.allGames.sort((a, b) => b.name.localeCompare(a.name))
-                }
-                console.log(ordenados)
-                return {
-                    ...state,
-                    allGames: ordenados,
-                    orden: action.payload,
-                }
+            if (action.payload === "A Nombre") {
+                ordenados = state.allGames.sort((a, b) => a.name.localeCompare(b.name))
             }
-            if (state.ratName === "rating"){
-                if (action.payload.Orden === "Ascendente") {
-                    ordenados = state.allGames.sort((a, b) => (a.rating > b.rating ? 1 : -1))
-                } else if (action.payload.Orden === "Descendente") {
-                    ordenados = state.allGames.sort((a, b) => (a.rating < b.rating ? 1 : -1))
-                } else{
-                    ordenados = state.allGames.sort((a, b) => (a.rating < b.rating ? 1 : -1))
-                }
-                return {
-                    ...state,
-                    allGames: ordenados,
-                    orden: action.payload,
-                }
+            if (action.payload === "D Nombre") {
+                ordenados = state.allGames.sort((a, b) => b.name.localeCompare(a.name))
             }
-
-
-
-        case ORDER_NAMRAT:
-            if(state.orden === "Ascendente"){
-                if (action.payload === "name") {
-                    ordenados = state.allGames.sort((a, b) => a.name.localeCompare(b.name))
-                } else if (action.payload === "rating") {
-                    ordenados = state.allGames.sort((a, b) => (a.rating > b.rating ? 1 : -1))
-                } else {
-                    ordenados = state.allGames.sort((a, b) => (a.rating > b.rating ? 1 : -1))
-                }
-                return {
-                    ...state,
-                    allGames: ordenados,
-                    ratName: action.payload
-                }
+            if (action.payload === "A Rating") {
+                ordenados = state.allGames.sort((a, b) => (a.rating > b.rating ? 1 : -1))
             }
-            if(state.orden === "Descendente"){
-                if (action.payload === "name") {
-                    ordenados = state.allGames.sort((a, b) => b.name.localeCompare(a.name))
-                } else if (action.payload === "rating") {
-                    ordenados = state.allGames.sort((a, b) => (a.rating < b.rating ? 1 : -1))
-                }else {
-                    ordenados = state.allGames.sort((a, b) => (a.rating < b.rating ? 1 : -1))
-                }
-                return {
-                    ...state,
-                    allGames: ordenados,
-                    ratName: action.payload
-                }
+            if (action.payload === "D Rating") {
+                ordenados = state.allGames.sort((a, b) => (a.rating < b.rating ? 1 : -1))
             }
+            return {
+                ...state,
+                allGames: ordenados,
+            }
+        case FILTER_GENRES:
+            filtrados = state.allGames.filter((game) => {
+                const selectedGenres = Object.keys(action.payload).filter((genre) => action.payload[genre]);
+                return selectedGenres.every((selectedGenre) => game.genres.includes(selectedGenre));
+              });
+            
+            console.log(action.payload);
 
+            return {
+                ...state,
+                allGames: state.allGames
+            }
 
         case CLEAR_STATE:
             return {

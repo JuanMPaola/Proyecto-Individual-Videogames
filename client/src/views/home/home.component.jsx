@@ -3,19 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import style from "./home.module.css"
 
-import { orderUpDown, getGames, orderNamRat } from "../../redux/actions";
+import { orderUpDown, getGames, filterGenres, filterByOrigin} from "../../redux/actions";
 import Cards from "../../components/cards/cards.component";
 
 
 function Home({ allGenres }) {
 
-  const [filters, setFilters] = useState({});
-
-  const [aux, setAux] = useState(false);
-
-  const dispatch = useDispatch();
-
-  let allGames = useSelector((state) => state.allGames);
+  const [filters, setFilters] = useState({});                 //ESTADO DE GENEROS
+  const [aux, setAux] = useState(false);                      // AUXILIAR
+  const dispatch = useDispatch();                             
+  let allGames = useSelector((state) => state.allGames);     
+  const [selectedRating, setSelectedRating] = useState("-");  //ESTADOS PARA REINICIAR LOS
+  const [selectedNombre, setSelectedNombre] = useState("-");  //SELECT DE NOMBRE Y RATING
 
   useEffect(() => {
     dispatch(getGames()); // Llama a la acción para cargar los juegos
@@ -27,14 +26,25 @@ function Home({ allGenres }) {
       ...filters,
       [name]: checked
     });
+    dispatch(filterGenres(filters))
+    setAux(true)
   };
-  const handleOrden = (event) => {
-    dispatch(orderUpDown(event.target.value))
+
+  const handleAscDsc = (event) => {
+    const selectedValue = event.target.value;
+    if (event.target.name === "Nombre") {          //REINICIA EL ESTADO DEL SELECT
+      setSelectedNombre(selectedValue);
+      setSelectedRating("-");
+    } else if (event.target.name === "Rating") {
+      setSelectedRating(selectedValue);
+      setSelectedNombre("-");
+    }
+    dispatch(orderUpDown(selectedValue))           //DESPACHA LA ACCION QUE ORDENA EL ARRAY
     setAux(true)
   }
-  const handleName = (event) => {
-    dispatch(orderNamRat(event.target.value))
-    setAux(true)
+
+  const handleOrigin = (event) =>{
+    dispatch(filterByOrigin(event.target.value))
   }
 
   console.log(allGames)
@@ -44,23 +54,23 @@ function Home({ allGenres }) {
       <div className={style.filtros}>
         <h1>filtros</h1>
 
-        <h3>Orden</h3>
-        <select name="Orden" onChange={handleOrden}>
-          <option value="-" selected >-</option>
-          <option value="Ascendente">Ascendente</option>
-          <option value="Descendente">Descendente</option>
+        <h3>Nombre</h3>
+        <select name="Nombre" onChange={handleAscDsc} value={selectedNombre}>
+          <option value="-" disabled>-</option>
+          <option value="A Nombre">Ascendente</option>
+          <option value="D Nombre">Descendente</option>
         </select>
 
         <h3>Rating</h3>
-        <select name="ratingName" onChange={handleName}>
-          <option value="-" selected >-</option>
-          <option value="name" >Nombre </option>
-          <option value="rating">Rating </option>
+        <select name="Rating" onChange={handleAscDsc} value={selectedRating}>
+          <option value="-" disabled>-</option>
+          <option value="A Rating" >Ascendente</option>
+          <option value="D Rating">Descendente</option>
         </select>
 
         <h3>Origen</h3>
-        <select name="Origen" onChange={handleOrden}>
-          <option value="-" selected>-</option>
+        <select name="Origen" onChange={handleOrigin}>
+          <option value="All" >All</option>
           <option value="DB">DB Games</option>
           <option value="API">API Games</option>
         </select>
