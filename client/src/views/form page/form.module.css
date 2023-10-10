@@ -4,6 +4,7 @@
     width: 300px;
     margin-left: 45%;
     color: aliceblue;
+    background: rgba(128, 128, 128, 0.486);
 }
 .container p {
     color: red;

@@ -17,11 +17,7 @@ const getVdName = async (req, res) => {
     });
 
     if (juegosDb) {
-      allGames = juegosDb.map((game) => ({
-        id: game.id,
-        name: game.name,
-        description: game.description,
-      }));
+      allGames = juegosDb.map((game) => (game));
     }
 
     const response = await axios.get(`${URL}${name}&key=${API_KEY}`);

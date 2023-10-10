@@ -1,10 +1,9 @@
-.container{
+.container {
     display: flex;
     justify-content: flex-start;
 }
 
-.cards {
-}
+.cards {}
 
 .filtros {
     background-color: rgb(47, 47, 47);
@@ -12,7 +11,18 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-   position: sticky;
-   top: 0;
+    position: sticky;
+    top: 0;
+    color: antiquewhite;
+    align-items: center;
 }
 
+.checkboxs {
+    /* display: flex;
+    flex-direction: column;
+    align-items: end;
+    transform: translateX(-60px); */
+    display: grid;
+    place-items: center;
+    gap: 10px;
+}

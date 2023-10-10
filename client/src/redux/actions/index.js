@@ -91,10 +91,10 @@ export function filterByOrigin(origin) {
     }
 }
 
-export function filterGenres(genres) {
+export function filterGenres(genre) {
     return ({
         type: FILTER_GENRES,
-        payload: genres,
+        payload: genre,
     })
 }
 
@@ -106,3 +106,8 @@ export function clearState() {
         })
     }
 }
+
+/*
+La idea es que al presionar en un checkbox se envie el value, y este se ultilize para filtrar...
+Tambien que al desmarcarlo se utilize para desfiltrar...
+*/

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getById } from "../../redux/actions";
 import { useParams } from "react-router-dom";
+import style from "./detail.module.css"
 
 function Detail() {
 
@@ -20,7 +21,7 @@ function Detail() {
 
   const description = game.description?.replace(/<[^>]*>/g, '');
   return (
-    <div >
+    <div className={style.container} >
       {console.log(game.genres)}
       <h1>Pagina de detalles</h1>
       <h3>{game.name}</h3>
