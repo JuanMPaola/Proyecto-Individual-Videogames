@@ -28,7 +28,7 @@ const getVdName = async (req, res) => {
       data.results.forEach(juego => {
         apiGames.push(juego);
       });
-      allGames = [...allGames, ...apiGames].slice(0,15);
+      allGames = [...allGames, ...apiGames].slice(0,100);
     }
 
     if (allGames.length > 0) return res.status(200).json(allGames);

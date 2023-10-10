@@ -1,11 +1,10 @@
 import { CLEAR_STATE, GET_BY_ID, GET_BY_NAME, GET_GAMES, SUMBIT_GAME, GET_GENRES, GET_PLATFORMS, ORDER_UPDOWN, FILTER_BY_ORIGIN, FILTER_GENRES } from "../actions";
 
-let initialState = { allGames: [], allGenres: [], platflorms: [], aux: [], selectedGenres: {} }
+let initialState = { allGames: [], allGenres: [], gameId:{}, platflorms: [], aux: [], selectedGenres: {} }
 
 function rootReducer(state = initialState, action) {
     let ordenados;
     let filtrados;
-    let generos;
 
     switch (action.type) {
 
@@ -22,7 +21,7 @@ function rootReducer(state = initialState, action) {
         case GET_BY_ID:
             return {
                 ...state,
-                allGames: action.payload
+                gameId: action.payload
             }
         case SUMBIT_GAME:
             return {

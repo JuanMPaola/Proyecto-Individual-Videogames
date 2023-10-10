@@ -22,20 +22,30 @@ function Nav() {
 
     return (
         <div className={style.container} >
+            <div>
+                <NavLink to={`/home`}>
+                    <button>Home</button>
+                    {/* <img src="../../assets/icons8-joystick-60.png" alt="" /> */}
+                </NavLink>
+            </div>
 
-            <NavLink to={`/home`}>
-                <button>Home</button>
-            </NavLink>
+            <div>
+                <input
+                    type="text"
+                    onChange={handleChange}
+                />
+                <button onClick={onSearch}>🔎</button>
+            </div>
 
-            <input
-                type="text"
-                onChange={handleChange}
-            />
-            <button onClick={onSearch}>🔎</button>
+            <div>
+                <NavLink to={`/form`}>
+                    <button>Upload game</button>
+                </NavLink>
+            </div>
 
-            <NavLink to={`/form`}>
-                <button>Upload game</button>
-            </NavLink>
+            <div>
+                <button>User</button>
+            </div>
 
 
         </div>

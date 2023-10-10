@@ -5,21 +5,22 @@ function Card({ game }) {
     console.log(game.background_image)
     return (
         <div className={style.container} >
-            <div>
-                
-                <img src={game.background_image} alt="" />
-                <h2>{game.name}</h2>
-                <ul>
-                    {game.genres?.map((genre) => (
-                        <li>{genre.name}</li>
-                    ))}
-                </ul>
-                <p>{game.rating}</p>
-            </div>
+            <NavLink to={`/detail/${game.id}`}>
+                <div>
 
-            <div>
-                <NavLink to={`/detail/${game.id}`}><button>Mas info</button></NavLink>
-            </div>
+                    <img src={game.background_image} alt="" />
+                    <h2>{game.name}</h2>
+                    <ul>
+                        {game.genres?.map((genre) => (
+                            <li>{genre.name}</li>
+                        ))}
+                    </ul>
+                    <p>{game.rating}</p>
+                </div>
+
+                <div>
+                </div>
+            </NavLink>
         </div>
     );
 }

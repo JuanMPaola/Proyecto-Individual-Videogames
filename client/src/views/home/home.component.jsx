@@ -18,11 +18,11 @@ function Home({ allGenres }) {
   //------------------------PAGINADO------------------------//
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [charactersPerPage, setCharactersPerPage] = useState(15)
-  const indexOfLastCharacter = currentPage + charactersPerPage
-  const indexOfFirstCharacter = indexOfLastCharacter - charactersPerPage
+  const [gamesPerPage, setGamesPerPage] = useState(15)
+  const indexOfLastCharacter = currentPage * gamesPerPage
+  const indexOfFirstCharacter = indexOfLastCharacter - gamesPerPage
 
-  const currentCharacters = allGames.slice(indexOfFirstCharacter, indexOfLastCharacter)
+  const currentGames = allGames?.slice(indexOfFirstCharacter, indexOfLastCharacter)
 
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber)
@@ -55,59 +55,77 @@ function Home({ allGenres }) {
     dispatch(filterByOrigin(event.target.value))
   }
 
-  console.log(allGames)
   return (
+
     <div className={style.container}>
+      {allGames.length > 0 ?
+        (<>
+          <div className={style.filtros}>
+            <h2>Filters</h2>
 
-      <div className={style.filtros}>
-        <h2>Filters</h2>
+            <h3>Name</h3>
+            <select name="Nombre" onChange={handleAscDsc} value={selectedNombre}>
+              <option value="-" disabled>-</option>
+              <option value="A Nombre">A - Z</option>
+              <option value="D Nombre">Z - A</option>
+            </select>
 
-        <h3>Name</h3>
-        <select name="Nombre" onChange={handleAscDsc} value={selectedNombre}>
-          <option value="-" disabled>-</option>
-          <option value="A Nombre">A - Z</option>
-          <option value="D Nombre">Z - A</option>
-        </select>
+            <h3>Rating</h3>
+            <select name="Rating" onChange={handleAscDsc} value={selectedRating}>
+              <option value="-" disabled>-</option>
+              <option value="A Rating" >Ascendent</option>
+              <option value="D Rating">Descendent</option>
+            </select>
 
-        <h3>Rating</h3>
-        <select name="Rating" onChange={handleAscDsc} value={selectedRating}>
-          <option value="-" disabled>-</option>
-          <option value="A Rating" >Ascendent</option>
-          <option value="D Rating">Descendent</option>
-        </select>
+            <h3>Origin</h3>
+            <select name="Origen" onChange={handleOrigin}>
+              <option value="All" >All</option>
+              <option value="DB">DB Games</option>
+              <option value="API">API Games</option>
+            </select>
 
-        <h3>Origin</h3>
-        <select name="Origen" onChange={handleOrigin}>
-          <option value="All" >All</option>
-          <option value="DB">DB Games</option>
-          <option value="API">API Games</option>
-        </select>
+            <h3>Generos</h3>
+            <div className={style.checkboxs}>
+              {allGenres && allGenres.map((genero) => (
+                <label key={genero.id}>
+                  {genero.name}
+                  <input
+                    type="checkbox"
 
-        <h3>Generos</h3>
-        <div className={style.checkboxs}>
-          {allGenres && allGenres.map((genero) => (
-            <label key={genero.id}>
-              {genero.name}
-              <input
-                type="checkbox"
+                    name={genero.name}
+                    onChange={handleChange}
+                  />
+                </label>
+              ))}
+            </div>
+          </div>
+          <div className={style.cardsPaginado}>
 
-                name={genero.name}
-                onChange={handleChange}
-              />
-            </label>
-          ))}
-        </div>
-      </div>
+            <Cards allGames={currentGames} />
 
-      <Paginado
-        charactersPerPage={charactersPerPage}
-        allGames={allGames.length}
-        paginado={paginado}
-      />
+            <Paginado
+              gamesPerPage={gamesPerPage}
+              allGames={allGames.length}
+              paginado={paginado}
+            />
+          </div>
 
-      <div className={style.cards}>
-        <Cards allGames={allGames} />
-      </div>
+          <div>
+
+          </div>
+
+        </>) : (
+
+          <div className={style.loading}>
+
+            <h1>Loading<span className={style.loadingDots}>...</span></h1>
+
+          </div>
+
+        )
+
+      }
+
 
     </div>
   );

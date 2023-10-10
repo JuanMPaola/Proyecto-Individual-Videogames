@@ -1,7 +1,7 @@
 import Card from "../card/card.component";
 import style from "../cards/cards.module.css"
 
-function Cards({ allGames }) {
+function Cards({ allGames}) {
 
     const gamesList = Array.isArray(allGames) ? allGames : [];
 
