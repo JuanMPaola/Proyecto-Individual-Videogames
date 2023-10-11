@@ -1,10 +1,11 @@
 import { CLEAR_STATE, GET_BY_ID, GET_BY_NAME, GET_GAMES, SUMBIT_GAME, GET_GENRES, GET_PLATFORMS, ORDER_UPDOWN, FILTER_BY_ORIGIN, FILTER_GENRES } from "../actions";
 
-let initialState = { allGames: [], allGenres: [], gameId:{}, platflorms: [], aux: [], selectedGenres: {} }
+let initialState = { allGames: [], allGenres: [], gameId: {}, platflorms: [], aux: [], /* selectedGenres: {} */ todos: [] }
 
 function rootReducer(state = initialState, action) {
     let ordenados;
     let filtrados;
+    let filtradosGenre = [];
 
     switch (action.type) {
 
@@ -16,7 +17,8 @@ function rootReducer(state = initialState, action) {
         case GET_GAMES:
             return {
                 ...state,
-                allGames: action.payload
+                allGames: action.payload,
+                todos: action.payload
             }
         case GET_BY_ID:
             return {
@@ -57,41 +59,28 @@ function rootReducer(state = initialState, action) {
                 allGames: ordenados,
             }
 
-        case FILTER_GENRES:
-/*             if(!generos?.includes(action.payload)) generos?.push(action.payload)
-            else if (generos?.includes(action.payload)) generos = generos?.filter((genre)=> genre !== action.payload)
-            
-            console.log(generos) */
-
-
-            // Clonar el objeto de géneros seleccionados actual
-            const selectedGenresCopy = { ...state.selectedGenres };
-
-            if (!selectedGenresCopy[action.payload]) {
-                // Si el género no está seleccionado, marcarlo como seleccionado
-                selectedGenresCopy[action.payload] = true;
-            } else {
-                // Si el género ya está seleccionado, desmarcarlo
-                delete selectedGenresCopy[action.payload];
-            }
-
-            const selectedGenres = state.selectedGenres;
-            // Filtrar los juegos en función de los géneros seleccionados
-            filtrados = state.allGames.filter((game) => {
-                return Object.keys(selectedGenres).every(
-                    (selectedGenre) => game.genres.includes(selectedGenre)
-                );
-            });
-
-            console.log(selectedGenres)
-
-            return {
-                ...state,
-                allGames: filtrados,
-            };
+            case FILTER_GENRES:
+                if (action.payload === "All") {
+                return {
+                    ...state,
+                    allGames: state.todos // Restaura la lista original de juegos sin filtrar
+                };
+                } else {
+                state.todos.filter(game => {
+                    game.genres.forEach(genero => {
+                        console.log(genero.name)
+                        if(genero.name === action.payload) filtradosGenre.push(game)
+                    });
+                });
+                return {
+                    ...state,
+                    allGames: filtradosGenre // Sobrescribe allGame con los juegos filtrados
+                };
+                }
 
         case FILTER_BY_ORIGIN:
             const todos = [...state.allGames, ...state.aux];
+
 
             if (action.payload === "DB") {
                 filtrados = todos.filter((game) => {

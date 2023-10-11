@@ -12,9 +12,11 @@ function Home({ allGenres }) {
   const [aux, setAux] = useState(false);                      // AUXILIAR
   const dispatch = useDispatch();
   let allGames = useSelector((state) => state.allGames);
+  let todos = allGames;
   const [selectedRating, setSelectedRating] = useState("-");  //ESTADOS PARA REINICIAR LOS
   const [selectedNombre, setSelectedNombre] = useState("-");  //SELECT DE NOMBRE Y RATING
-
+  const [selectedOrigin, setSelectedOrigin] = useState();
+  const [selectedGenre, setSelectedGenre] = useState();
   //------------------------PAGINADO------------------------//
 
   const [currentPage, setCurrentPage] = useState(1)
@@ -33,8 +35,9 @@ function Home({ allGenres }) {
     dispatch(getGames()); // Llama a la acción para cargar los juegos
   }, []);
 
-  const handleChange = (event) => {
-    dispatch(filterGenres(event.target.name))
+  const handleGenre = (event) => {
+    console.log(event.target.value, "AAAAAAAAAAAA")
+    dispatch(filterGenres(event.target.value))
     setAux(true)
   };
 
@@ -52,10 +55,17 @@ function Home({ allGenres }) {
   }
 
   const handleOrigin = (event) => {
-    dispatch(filterByOrigin(event.target.value))
+    dispatch(filterByOrigin(event.target.name))
   }
 
-  console.log(allGames)
+  const handleReset = () => {
+    setSelectedNombre("-");
+    setSelectedRating("-");
+    setSelectedOrigin("All")
+    setSelectedGenre("All")
+    dispatch(getGames());
+    setAux(false);
+  };
 
   return (
 
@@ -80,7 +90,7 @@ function Home({ allGenres }) {
             </select>
 
             <h3>Origin</h3>
-            <select name="Origen" onChange={handleOrigin}>
+            <select name="Origen" onChange={handleOrigin} value={selectedOrigin}>
               <option value="All" >All</option>
               <option value="DB">DB Games</option>
               <option value="API">API Games</option>
@@ -89,8 +99,8 @@ function Home({ allGenres }) {
             <h3>Generes</h3>
 
 
-            <select>
-              <option value="none" selected>None</option>
+            <select onChange={handleGenre}>
+              <option value={selectedGenre} selected>All</option>
               {
                 allGenres.map((genero) => (
                   <option key={genero.id} value={genero.name}>
@@ -117,7 +127,7 @@ function Home({ allGenres }) {
 
             <h3>-</h3>
 
-            <button>RESET</button>
+            <button onClick={handleReset}>RESET</button>
           </div>
           <div className={style.cardsPaginado}>
 

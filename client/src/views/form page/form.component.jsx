@@ -58,7 +58,7 @@ function Form({ allGenres }) {
     if (data.platforms.length < 1 || !data.platforms) errors.platforms = "Ingrese aunque sea una plataforma"
 
     if (!data.rating) errors.rating = "Ingrese el rating del juego"
-    if (data.rating > 10 || data.rating < 0) errors.rating = "Rating debe ser entre 0 y 10"
+    if (data.rating > 5 || data.rating < 0) errors.rating = "Rating debe ser entre 0 y 5"
 
     if (data.realesed === "" || !data.realesed) errors.realesed = "Ingrese la fecha de lanzamiento"
 
@@ -197,7 +197,7 @@ function Form({ allGenres }) {
           type="text"
           value={data.rating}
           onChange={handleChange}
-          placeholder="1 to 10"
+          placeholder="1 to 5"
           name="rating"
         />
 
