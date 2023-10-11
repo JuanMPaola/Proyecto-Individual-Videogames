@@ -7,7 +7,7 @@ const { getGenres } = require('../controllers/getGenres');
 const { getVideogame } = require('../controllers/getVideogame');
 const { postVideogame } = require('../controllers/postVideogame');
 const { getVdName } = require ('../controllers/getVdName');
-
+/* const { getPlaforms } = require ('../controllers/getPlatforms') */
 const router = Router();
 
 // Configurar los routers
@@ -18,5 +18,5 @@ router.get("/videogames/:id", getVdById);
 router.get("/videogames", getVideogame);
 router.post("/videogames", postVideogame);
 router.get("/genres", getGenres);
-
+/* router.get("/videogames", getPlaforms) */
 module.exports = router;

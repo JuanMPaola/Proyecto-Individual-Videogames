@@ -66,16 +66,15 @@ export function getGenres() {
     }
 }
 
-/* export function getPlatforms (){
+export function getPlatforms (){
     return async function(dispatch){
         const response = await axios (`http://localhost:3001/videogames`)
-        console.log(response)
         return dispatch ({
             typeof: GET_PLATFORMS,
             payload: response.data
-        }
+        })
     }
-} */
+}
 
 export function orderUpDown(orden) {
     return {

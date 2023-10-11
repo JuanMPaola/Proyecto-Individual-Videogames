@@ -2,7 +2,11 @@
     color: white;
     display: flex;
     justify-content: space-between;
-    grid-template-columns: repeat(2, 1fr)
+    grid-template-columns: repeat(2, 1fr);
+
+    background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-attachment: fixed; /* Fija el fondo para que no se desplace con el contenido */
 }
 
 .container img {

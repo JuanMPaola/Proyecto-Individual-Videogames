@@ -1,8 +1,7 @@
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes, useLocation } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getGenres, getPlatforms } from "./redux/actions";
-import { getGames } from "./redux/actions";
 
 import "./App.css"
 
@@ -17,12 +16,15 @@ function App() {
   const dispatch = useDispatch();
 
   let allGenres = useSelector((state) => state.allGenres);
-  
+
+
   useEffect(() => {
     dispatch(getGenres())
     //Aca va lo que pasa cuando se desmonta
     /* return (()=>clearState()) */
   }, [dispatch])
+
+  const location = useLocation()
   
   const allPlataforms = ["PC", "xBox", "PS4", "Switch", "PS5"]
 /*   const platforms = useSelector((state)=> state.platforms)
@@ -34,11 +36,11 @@ function App() {
 
   return (
     <div>
-      <Nav />
+      {location.pathname !== '/' && <Nav /> }
       <Routes>
-        <Route path="/detail/:id" element={<Detail />} />
         <Route path="/" element={<Landing />} />
         <Route exact path="/home" element={<Home allGenres={allGenres} />} />
+        <Route path="/detail/:id" element={<Detail />} />
         <Route path="/form" element={<Form allGenres={allGenres} allPlataforms={allPlataforms} />} />
       </Routes>
     </div>

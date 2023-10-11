@@ -1,4 +1,4 @@
-const { Videogame } = require('../db')
+/* const { Videogame } = require('../db')
 
 const getByIdHandler = async (res, req, id) => {
     try {
@@ -10,4 +10,4 @@ const getByIdHandler = async (res, req, id) => {
     }
 }
 
-module.exports = { getByIdHandler }
+module.exports = { getByIdHandler } */

@@ -1,13 +1,13 @@
 const axios = require('axios');
 const URL = "https://api.rawg.io/api/games";
-const { Videogame } = require('../db');
+const { Videogame, Genre } = require('../db');
 const { API_KEY } = process.env;
 let PAGE = 1;
 
 const getVideogame = async (req, res) => {
     try {
         let allGames = [];
-        allGames = await Videogame.findAll()
+        allGames = await Videogame.findAll({include:{model: Genre}})
 
         while (PAGE < 6) {
             let { data } = await axios(`${URL}?key=${API_KEY}&page=${PAGE}`)

@@ -21,4 +21,13 @@
     border: none;
     color: antiquewhite;
     font-size: large;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    /* Agregar una transición suave para los cambios de tamaño y brillo */
+}
+
+.container button:hover {
+    transform: scale(1.05); /* Escalar el botón al 105% del tamaño original */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    color: limegreen;
 }

@@ -55,6 +55,8 @@ function Home({ allGenres }) {
     dispatch(filterByOrigin(event.target.value))
   }
 
+  console.log(allGames)
+
   return (
 
     <div className={style.container}>
@@ -84,8 +86,22 @@ function Home({ allGenres }) {
               <option value="API">API Games</option>
             </select>
 
-            <h3>Generos</h3>
-            <div className={style.checkboxs}>
+            <h3>Generes</h3>
+
+
+            <select>
+              <option value="none" selected>None</option>
+              {
+                allGenres.map((genero) => (
+                  <option key={genero.id} value={genero.name}>
+                    {genero.name}
+                  </option>
+                ))
+              }
+            </select>
+
+
+            {/* <div className={style.checkboxs}>
               {allGenres && allGenres.map((genero) => (
                 <label key={genero.id}>
                   {genero.name}
@@ -97,7 +113,11 @@ function Home({ allGenres }) {
                   />
                 </label>
               ))}
-            </div>
+            </div> */}
+
+            <h3>-</h3>
+
+            <button>RESET</button>
           </div>
           <div className={style.cardsPaginado}>
 

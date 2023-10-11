@@ -115,16 +115,31 @@ function Form({ allGenres }) {
   function handleSumbit(event) {
     event.preventDefault()
     dispatch(sumbitGame(data))
+    setData({
+      name: "",
+      description: "",
+      realesed: "",
+      background_image: "",
+      rating: "",
+      platforms: [],
+      genres: [],
+    });
+    setErrors({
+      name: "",
+      description: "",
+      realesed: "",
+      background_image: "",
+      rating: "",
+      platforms: "",
+      genres: "",
+    });
   }
 
   return (
     <div className={style.container} >
-      <h1>Subi tu juego</h1>
-
-      {console.log(data)}
 
       <form onSubmit={handleSumbit}>
-        <label >Nombre</label>
+        <label >Name</label>
         <input
           type="text"
           value={data.name}
@@ -133,7 +148,7 @@ function Form({ allGenres }) {
           name="name"
         />
         {errors.name ? <p className="formerror">{errors.name}</p> : null}
-        <label >Imagen</label>
+        <label >Image</label>
         <input
           type="text"
           value={data.background_image}
@@ -142,7 +157,7 @@ function Form({ allGenres }) {
           name="background_image"
         />
         {errors.background_image ? <p className="formerror">{errors.background_image}</p> : null}
-        <label >Descripcion</label>
+        <label >Description</label>
         <input
           type="text"
           value={data.description}
@@ -151,7 +166,7 @@ function Form({ allGenres }) {
           name="description"
         />
         {errors.description ? <p className="formerror">{errors.description}</p> : null}
-        <label >Plataformas</label>
+        <label >Platforms</label>
         <select
           defaultValue=""
           onChange={handleChange}
@@ -189,7 +204,7 @@ function Form({ allGenres }) {
         
 
         {errors.rating ? <p className="formerror">{errors.rating}</p> : null}
-        <label >Fecha de lanzamiento</label>
+        <label >Realesed</label>
         <input
           type="date"
           value={data.realesed}
@@ -198,7 +213,7 @@ function Form({ allGenres }) {
           name="realesed"
         />
         {errors.realesed ? <p className="formerror">{errors.realesed}</p> : null}
-        <label >Generos</label>
+        <label >Genres</label>
         <select
           defaultValue=""
           onChange={handleChange}
@@ -224,7 +239,7 @@ function Form({ allGenres }) {
           </div>
         ) : null}
 
-        <button type="submit" onClick={handleSumbit} disabled={isDisabled}>SUMBITEALO</button>
+        <button type="submit" onClick={handleSumbit} disabled={isDisabled}>SUMBIT</button>
       </form>
     </div>
   );
