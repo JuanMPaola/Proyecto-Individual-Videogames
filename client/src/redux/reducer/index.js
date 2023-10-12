@@ -59,59 +59,45 @@ function rootReducer(state = initialState, action) {
                 allGames: ordenados,
             }
 
-            case FILTER_GENRES:
-                if (action.payload === "All") {
+        case FILTER_GENRES:
+            if (action.payload === "All") {
                 return {
                     ...state,
                     allGames: state.todos // Restaura la lista original de juegos sin filtrar
                 };
-                } else {
+            } else {
                 state.todos.filter(game => {
                     game.genres.forEach(genero => {
                         console.log(genero.name)
-                        if(genero.name === action.payload) filtradosGenre.push(game)
+                        if (genero.name === action.payload) filtradosGenre.push(game)
                     });
                 });
                 return {
                     ...state,
                     allGames: filtradosGenre // Sobrescribe allGame con los juegos filtrados
                 };
-                }
+            }
 
         case FILTER_BY_ORIGIN:
-            const todos = [...state.allGames, ...state.aux];
-
+            let filtrados;
 
             if (action.payload === "DB") {
-                filtrados = todos.filter((game) => {
-                    return typeof game.id === 'string' && game.id.includes("-");
-                });
-                return {
-                    ...state,
-                    aux: state.allGames,
-                    allGames: filtrados,
-                };
+                filtrados = state.todos.filter((game) => typeof game.id === 'string' && game.id.includes("-"));
+            } else if (action.payload === "API") {
+                filtrados = state.todos.filter((game) => typeof game.id === 'number');
+            } else if (action.payload === "All") {
+                // Si seleccionas "All", restaura la lista original de juegos sin duplicados
+                filtrados = state.todos;
             }
-            if (action.payload === "API") {
-                filtrados = todos.filter((game) => {
-                    return typeof game.id === 'number';
-                });
-                return {
-                    ...state,
-                    aux: state.allGames,
-                    allGames: filtrados,
-                };
-            }
-            if (action.payload === "All") {
-                return {
-                    ...state,
-                    allGames: todos,
-                };
-            }
-            break;
+
+            return {
+                ...state,
+                allGames: filtrados,
+            };
         case CLEAR_STATE:
             return {
-                allGames: []
+                ...state,
+                gameId: {}
             }
         default:
             return state

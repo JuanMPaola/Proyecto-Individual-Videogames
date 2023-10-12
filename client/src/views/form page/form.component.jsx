@@ -72,11 +72,10 @@ function Form({ allGenres }) {
     const { name, value } = event.target;
 
     if (name === "platforms" || name === "genres") {
-      const selectedValue = value;
-      if (!data[name].includes(selectedValue)) {
+      if (!data[name].includes(value)) {
         setData({
           ...data,
-          [name]: [...data[name], selectedValue]
+          [name]: [...data[name], value]
         });
       }
     } else {
@@ -139,6 +138,7 @@ function Form({ allGenres }) {
     <div className={style.container} >
 
       <form onSubmit={handleSumbit}>
+
         <label >Name</label>
         <input
           type="text"
@@ -148,6 +148,7 @@ function Form({ allGenres }) {
           name="name"
         />
         {errors.name ? <p className="formerror">{errors.name}</p> : null}
+
         <label >Image</label>
         <input
           type="text"
@@ -157,6 +158,7 @@ function Form({ allGenres }) {
           name="background_image"
         />
         {errors.background_image ? <p className="formerror">{errors.background_image}</p> : null}
+
         <label >Description</label>
         <input
           type="text"
@@ -166,6 +168,7 @@ function Form({ allGenres }) {
           name="description"
         />
         {errors.description ? <p className="formerror">{errors.description}</p> : null}
+
         <label >Platforms</label>
         <select
           defaultValue=""
@@ -201,8 +204,6 @@ function Form({ allGenres }) {
           name="rating"
         />
 
-        
-
         {errors.rating ? <p className="formerror">{errors.rating}</p> : null}
         <label >Realesed</label>
         <input
@@ -213,6 +214,7 @@ function Form({ allGenres }) {
           name="realesed"
         />
         {errors.realesed ? <p className="formerror">{errors.realesed}</p> : null}
+
         <label >Genres</label>
         <select
           defaultValue=""
@@ -239,7 +241,7 @@ function Form({ allGenres }) {
           </div>
         ) : null}
 
-        <button type="submit" onClick={handleSumbit} disabled={isDisabled}>SUMBIT</button>
+        <button type="submit" onClick={handleSumbit} disabled={isDisabled} className={style.sumbit}>SUMBIT</button>
       </form>
     </div>
   );

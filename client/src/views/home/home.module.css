@@ -71,10 +71,16 @@
     }
 }
 
-/* Aplica la animación a los puntos */
-/* .loadingDots::before {
-    content: "..." !important;
-    animation: loadingDotsAnimation 1.5s infinite !important;
-    display: inline-block !important;
-    white-space: nowrap !important;
-} */
+.filtros button {
+    background-color: rgba(228, 228, 228, 0.486);
+    border: none;
+    margin-left: 2px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.filtros button:active{
+    transform: scale(0.95); /* Reduce ligeramente el tamaño del botón al hacer clic */
+    box-shadow: none; /* Elimina la sombra al hacer clic */
+    transition: transform 0s; /* Elimina la transición para que la animación sea instantánea al hacer clic */
+}
+

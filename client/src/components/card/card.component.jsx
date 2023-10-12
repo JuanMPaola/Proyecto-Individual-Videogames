@@ -15,7 +15,7 @@ function Card({ game }) {
                             <li>{genre.name}</li>
                         ))}
                     </ul>
-                    <p>{game.rating}</p>
+                    <p>{game.rating}</p> {(game.rating > 3.5)? <p>Recomendado!</p>: null}
                 </div>
 
                 <div>

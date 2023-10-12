@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
     },
     platforms: {
       type: DataTypes.ARRAY(DataTypes.STRING),
-      /* allowNull: false, */
+      allowNull: false,
     },
     background_image: {
       type: DataTypes.STRING,

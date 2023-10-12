@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getById } from "../../redux/actions";
+import { getById, clearState } from "../../redux/actions";
 import { useParams } from "react-router-dom";
 import style from "./detail.module.css"
 
@@ -16,7 +16,7 @@ function Detail() {
     dispatch(getById(id))
 
     //Aca va lo que pasa cuando se desmonta
-    /* return (()=>clearState()) */
+    return (()=>dispatch(clearState()))
   }, [dispatch])
 
   console.log(game)
@@ -55,7 +55,7 @@ function Detail() {
           ))}
         </ul>
         <h4>Avible on:</h4>
-        
+
         {/* <ul>
           {game.platforms?.map((plat) => (
             <li key={plat}>{plat}</li>

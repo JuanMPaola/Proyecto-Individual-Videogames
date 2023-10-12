@@ -36,7 +36,6 @@ function Home({ allGenres }) {
   }, []);
 
   const handleGenre = (event) => {
-    console.log(event.target.value, "AAAAAAAAAAAA")
     dispatch(filterGenres(event.target.value))
     setAux(true)
   };
@@ -55,7 +54,7 @@ function Home({ allGenres }) {
   }
 
   const handleOrigin = (event) => {
-    dispatch(filterByOrigin(event.target.name))
+    dispatch(filterByOrigin(event.target.value))
   }
 
   const handleReset = () => {
@@ -91,16 +90,15 @@ function Home({ allGenres }) {
 
             <h3>Origin</h3>
             <select name="Origen" onChange={handleOrigin} value={selectedOrigin}>
-              <option value="All" >All</option>
+              <option value="All" selected>All</option>
               <option value="DB">DB Games</option>
               <option value="API">API Games</option>
             </select>
 
             <h3>Generes</h3>
 
-
-            <select onChange={handleGenre}>
-              <option value={selectedGenre} selected>All</option>
+            <select onChange={handleGenre} value={selectedGenre}>
+              <option value="All" selected>All</option>
               {
                 allGenres.map((genero) => (
                   <option key={genero.id} value={genero.name}>
