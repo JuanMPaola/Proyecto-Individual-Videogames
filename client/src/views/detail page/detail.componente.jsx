@@ -26,20 +26,8 @@ function Detail() {
     <div className={style.container} style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,1)),url(${game.background_image})` }} >
 
       <div className={style.lateral}>
-        <h2>Filters</h2>
 
-        <h3>Aca van distintas opciones</h3>
-
-        <h3>Rating</h3>
-
-
-        <h3>Origin</h3>
-
-
-        <h3>Generos</h3>
-        <div >
-        </div>
-        <button>back</button>
+        {/* <button>back</button> */}
       </div>
 
       <div className={style.informacion}>
@@ -56,11 +44,11 @@ function Detail() {
         </ul>
         <h4>Avible on:</h4>
 
-        {/* <ul>
+        <ul>
           {game.platforms?.map((plat) => (
-            <li key={plat}>{plat}</li>
+            <li key={plat}>{plat.platform.name}</li>
           ))}
-        </ul> */}
+        </ul>
       </div>
 
       <div>

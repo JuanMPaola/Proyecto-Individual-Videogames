@@ -14,17 +14,22 @@ function Nav() {
         event.preventDefault()
         dispatch(getByName(name))
     }
+    // setCurrentpage (1)
 
 
     function handleChange(event) {
         setName(event.target.value);
     }
 
+   /*  function handleDetail(event) {
+        dispatch()
+    } */
+
     return (
         <div className={style.container} >
             <div>
                 <NavLink to={`/home`}>
-                    <button>Home</button>
+                    <button /* onClick={handleDetail} */>Home</button>
                     {/* <img src="../../assets/icons8-joystick-60.png" alt="" /> */}
                 </NavLink>
             </div>

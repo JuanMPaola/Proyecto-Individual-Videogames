@@ -12,7 +12,7 @@ function Home({ allGenres }) {
   const [aux, setAux] = useState(false);                      // AUXILIAR
   const dispatch = useDispatch();
   let allGames = useSelector((state) => state.allGames);
-  let todos = allGames;
+
   const [selectedRating, setSelectedRating] = useState("-");  //ESTADOS PARA REINICIAR LOS
   const [selectedNombre, setSelectedNombre] = useState("-");  //SELECT DE NOMBRE Y RATING
   const [selectedOrigin, setSelectedOrigin] = useState();
@@ -108,21 +108,6 @@ function Home({ allGenres }) {
               }
             </select>
 
-
-            {/* <div className={style.checkboxs}>
-              {allGenres && allGenres.map((genero) => (
-                <label key={genero.id}>
-                  {genero.name}
-                  <input
-                    type="checkbox"
-
-                    name={genero.name}
-                    onChange={handleChange}
-                  />
-                </label>
-              ))}
-            </div> */}
-
             <h3>-</h3>
 
             <button onClick={handleReset}>RESET</button>
@@ -135,6 +120,7 @@ function Home({ allGenres }) {
               gamesPerPage={gamesPerPage}
               allGames={allGames.length}
               paginado={paginado}
+              currentPage={currentPage}
             />
           </div>
 

@@ -9,13 +9,28 @@ function Card({ game }) {
                 <div>
 
                     <img src={game.background_image} alt="" />
-                    <h2>{game.name}</h2>
-                    <ul>
-                        {game.genres?.map((genre) => (
-                            <li>{genre.name}</li>
-                        ))}
-                    </ul>
-                    <p>{game.rating}</p> {(game.rating > 3.5)? <p>Recomendado!</p>: null}
+
+                    <div className={style.cardInfo}>
+
+
+                        <div>
+                            <h2>{game.name}</h2>
+
+                        </div>
+
+                        <div>
+                            <p>{game.rating}</p>
+                        </div>
+
+                        <div>
+                            <ul>
+                                {game.genres?.map((genre) => (
+                                    <li>{genre.name}</li>
+                                ))}
+                            </ul>
+                        </div>
+
+                    </div>
                 </div>
 
                 <div>
